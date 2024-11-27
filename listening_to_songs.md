@@ -1,3 +1,5 @@
+<!--- shellscripting, linux, automation -->
+
 # Listening to songs, like chads
 
 I use Arch Btw.
@@ -11,6 +13,7 @@ First of all, I got all YouTube video IDs from the playlist I listen to. (it has
 ```sh
 yt-dlp --flat-playlist --print id "<playlist url here>" > ids.txt
 ```
+
 the playlist URL I used, https://youtu.be/kJQP7kiw5Fk?list=PL15B1E77BB5708555. you can use your favorite.
 
 now I wrote a very simple shell script to download the songs (using yt-dlp) and play them (using mpv). you can choose a different media player. make sure to check out yt-dlp if you haven’t already.
@@ -29,7 +32,7 @@ do
   expr "$current_id" "+" 1 > ./current_id.txt
   song_id=$(head "-$current_id" < ids.txt | tail -1)
   echo "$song_id"
-  yt-dlp -f wa "$song_id" -o "./playing/%(title)s.%(ext)s" 
+  yt-dlp -f wa "$song_id" -o "./playing/%(title)s.%(ext)s"
   mpv playing/*
   mv playing/* played/
 done

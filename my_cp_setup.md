@@ -1,3 +1,5 @@
+<!--- shellscripting, linux, automation -->
+
 # My CP Setup
 
 Of course i wrote some shell script to automate stuff, lets check them out, shall we?
