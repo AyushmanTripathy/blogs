@@ -24,6 +24,8 @@ function compile(path) {
   return {
     id: basename(path).replace(".md", ""),
     tags: tags[0]
+      .replace("<!-+", "")
+      .replace("-+>", "")
       .split(",")
       .map((x) => x.trim())
       .filter(Boolean),
