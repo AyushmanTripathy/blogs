@@ -1,6 +1,6 @@
 import { parse } from "marked";
 import { readdirSync, readFileSync, writeFileSync } from "fs";
-import { resolve } from "path";
+import { basename, resolve } from "path";
 
 init(process.argv[1], process.argv[2]);
 function init(start, path) {
@@ -22,6 +22,7 @@ function compile(path) {
   if (!tags) throw "Tag not found for " + path;
 
   return {
+    id: basename(path).replace(".md", ""),
     tags: tags[0]
       .replace(/<!-*/, "")
       .replace(/-*>/, "")
