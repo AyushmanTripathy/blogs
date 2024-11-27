@@ -10,26 +10,24 @@ function init(start, path) {
   for (const file of files) {
     if (file.endsWith(".md")) output.push(compile(resolve(base, file)));
   }
-  if (!path) throw "Output path not provided"
+  if (!path) throw "Output path not provided";
   writeFileSync(path, JSON.stringify(output));
 }
 
 function compile(path) {
   const file = readFileSync(path, "utf-8");
   const tags = file.match(/<!-*.*-*>/);
-  const heading = file.match(/#.*\n/)
+  const heading = file.match(/#.*\n/);
   if (!heading) throw "Heading not found for " + path;
   if (!tags) throw "Tag not found for " + path;
 
   return {
     id: basename(path).replace(".md", ""),
     tags: tags[0]
-      .replace(/<!-*/, "")
-      .replace(/-*>/, "")
       .split(",")
       .map((x) => x.trim())
       .filter(Boolean),
     heading: heading[0].replace("#", "").trim(),
-    html: parse(file)
+    html: parse(file.replace(/#.*\n/, "").replace(/\<\!\-+.*\-+\>/, "")),
   };
 }
